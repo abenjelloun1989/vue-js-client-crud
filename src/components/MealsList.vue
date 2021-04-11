@@ -34,7 +34,7 @@
     </div>
     <div class="col-md-6">
       <div v-if="currentMeal">
-        <div>
+        <div class="form-group">
           <h5>{{ currentMeal.title }}</h5> 
         </div>
         <div class="form-group">
@@ -45,35 +45,27 @@
         </div>
         <div class="form-group">
           <label for="weight">Combien je mange? (en g)</label>
-          <input type="text" class="form-control" id="weight"
-            v-model="currentMeal.weight"
-          />
+          <b-form-spinbutton id="weight" v-model="weight" min="10" max="500" step="10"></b-form-spinbutton>
         </div>
         <div class="form-group">
-          <label for="ratio">Quel est mon ratio?</label>
-          <input type="text" class="form-control" id="ratio"
-            v-model="currentMeal.ratio"
-          />
+          <label for="sb-step">Ratio</label>
+          <b-form-spinbutton
+            id="sb-step"
+            v-model="ratio"
+            min="0"
+            max="10"
+            step="0.10"
+          ></b-form-spinbutton>
         </div>
-        <div>
+        <div class="form-group">
           <h5>Total unités d'insuline:</h5>
           <label class="form-control">
-          {{ (currentMeal.weight && currentMeal.carbo && currentMeal.ratio 
-             ? currentMeal.weight.replace(",",".")/100*currentMeal.carbo.replace(",",".")/10*currentMeal.ratio.replace(",",".")
+          {{ (weight && currentMeal.carbo && ratio 
+             ? weight/100*currentMeal.carbo.replace(",",".")/10*ratio
              : 0).toFixed(2) }}
           </label>
         </div>
         <!--
-        <div>
-          <label><strong>Weight:</strong></label> {{ currentMeal.weight }}
-        </div>
-        <div>
-          <label><strong>Ratio:</strong></label> {{ currentMeal.ratio }}
-        </div>
-        <div>
-          <label><strong>Insuline:</strong></label> {{ currentMeal.weight/currentMeal.insuline*currentMeal.ratio }}
-        </div>
-        
         <a class="badge badge-warning"
           :href="'/meals/' + currentMeal.id"
         >
@@ -98,7 +90,9 @@ export default {
       meals: [],
       currentMeal: null,
       currentIndex: -1,
-      title: ""
+      title: "",
+      ratio: 1,
+      weight: 70
     };
   },
   methods: {

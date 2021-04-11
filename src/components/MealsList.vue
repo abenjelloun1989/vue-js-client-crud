@@ -2,19 +2,20 @@
   <div class="list row">
     <div class="col-md-8">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search by title"
-          v-model="title"/>
+        <input type="text" class="form-control" placeholder="Rechercher par aliment"
+          v-model="title"
+          v-on:keyup.enter="searchTitle" />
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button"
             @click="searchTitle"
           >
-            Search
+            Trouve moi!
           </button>
         </div>
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Meals List</h4>
+      <h4>Liste de repas</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
@@ -25,16 +26,16 @@
           {{ meal.title }}
         </li>
       </ul>
-
+      <!--
       <button class="m-3 btn btn-sm btn-danger" @click="removeAllMeals">
         Remove All
       </button>
+      -->
     </div>
     <div class="col-md-6">
       <div v-if="currentMeal">
-        <h4>Meal</h4>
         <div>
-          <label><strong>Title:</strong></label> {{ currentMeal.title }}
+          <h5>{{ currentMeal.title }}</h5> 
         </div>
         <div class="form-group">
           <label for="carbo">Glucides pour 100g</label>
@@ -55,10 +56,12 @@
           />
         </div>
         <div>
-          <label><strong>Total unités d'insuline:</strong></label> 
+          <h5>Total unités d'insuline:</h5>
+          <label class="form-control">
           {{ (currentMeal.weight && currentMeal.carbo && currentMeal.ratio 
              ? currentMeal.weight.replace(",",".")/100*currentMeal.carbo.replace(",",".")/10*currentMeal.ratio.replace(",",".")
              : 0).toFixed(2) }}
+          </label>
         </div>
         <!--
         <div>
@@ -79,7 +82,7 @@
       </div>
       <div v-else>
         <br />
-        <p>Please click on a Meal...</p>
+        <p>Veuillez appuyer sur un repas...</p>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="currentMeal" class="edit-form">
-    <h4>Meal</h4>
+    <h4>Repas</h4>
     <form>
       <div class="form-group">
         <label for="title">Title</label>

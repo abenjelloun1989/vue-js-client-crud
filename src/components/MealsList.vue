@@ -26,57 +26,51 @@
           {{ meal.title }}
         </li>
       </ul>
-      <!--
-      <button class="m-3 btn btn-sm btn-danger" @click="removeAllMeals">
-        Remove All
-      </button>
-      -->
     </div>
-    <div class="col-md-6">
-      <div v-if="currentMeal">
-        <div class="form-group">
-          <h5>{{ currentMeal.title }}</h5> 
+    <b-modal id="meal-modal" ok-only v-bind:title="currentMeal?currentMeal.title:''">
+      <div class="col-md-6">
+        <div v-if="currentMeal">
+          <div class="form-group">
+            <label for="carbo">Glucides pour 100g</label>
+            <input type="text" class="form-control" id="carbo"
+              v-model="currentMeal.carbo"
+            />
+          </div>
+          <div class="form-group">
+            <label for="weight">Combien je mange? (en g)</label>
+            <b-form-spinbutton id="weight" v-model="weight" min="10" max="500" step="10"></b-form-spinbutton>
+          </div>
+          <div class="form-group">
+            <label for="sb-step">Ratio</label>
+            <b-form-spinbutton
+              id="sb-step"
+              v-model="ratio"
+              min="0"
+              max="10"
+              step="0.10"
+            ></b-form-spinbutton>
+          </div>
+          <div class="form-group">
+            <h5>Total unités d'insuline:</h5>
+            <label class="form-control">
+            {{ (weight && currentMeal.carbo && ratio 
+              ? weight/100*currentMeal.carbo.replace(",",".")/10*ratio
+              : 0).toFixed(2) }}
+            </label>
+          </div>
+          <!--
+          <a class="badge badge-warning"
+            :href="'/meals/' + currentMeal.id"
+          >
+            Edit
+          </a>-->
         </div>
-        <div class="form-group">
-          <label for="carbo">Glucides pour 100g</label>
-          <input type="text" class="form-control" id="carbo"
-            v-model="currentMeal.carbo"
-          />
+        <div v-else>
+          <br />
+          <p>Veuillez appuyer sur un repas...</p>
         </div>
-        <div class="form-group">
-          <label for="weight">Combien je mange? (en g)</label>
-          <b-form-spinbutton id="weight" v-model="weight" min="10" max="500" step="10"></b-form-spinbutton>
-        </div>
-        <div class="form-group">
-          <label for="sb-step">Ratio</label>
-          <b-form-spinbutton
-            id="sb-step"
-            v-model="ratio"
-            min="0"
-            max="10"
-            step="0.10"
-          ></b-form-spinbutton>
-        </div>
-        <div class="form-group">
-          <h5>Total unités d'insuline:</h5>
-          <label class="form-control">
-          {{ (weight && currentMeal.carbo && ratio 
-             ? weight/100*currentMeal.carbo.replace(",",".")/10*ratio
-             : 0).toFixed(2) }}
-          </label>
-        </div>
-        <!--
-        <a class="badge badge-warning"
-          :href="'/meals/' + currentMeal.id"
-        >
-          Edit
-        </a>-->
       </div>
-      <div v-else>
-        <br />
-        <p>Veuillez appuyer sur un repas...</p>
-      </div>
-    </div>
+    </b-modal>
   </div>
 </template>
 
@@ -116,6 +110,7 @@ export default {
     setActiveMeal(meal, index) {
       this.currentMeal = meal;
       this.currentIndex = index;
+      this.$bvModal.show("meal-modal");
     },
 
     removeAllMeals() {

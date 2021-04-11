@@ -1,21 +1,21 @@
 <template>
   <div class="list row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Rechercher par aliment"
+        <b-input type="text" size="lg" class="form-control" placeholder="Commencez à écrire ..."
           v-model="title"
           v-on:keyup.enter="searchTitle" />
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button"
             @click="searchTitle"
           >
-            Trouve moi!
+            Miam !
           </button>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <h4>Liste de repas</h4>
+    <div class="col-md-12">
+      <h4>Liste des aliments</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
@@ -28,7 +28,7 @@
       </ul>
     </div>
     <b-modal id="meal-modal" ok-only v-bind:title="currentMeal?currentMeal.title:''">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div v-if="currentMeal">
           <div class="form-group">
             <label for="carbo">Glucides pour 100g</label>

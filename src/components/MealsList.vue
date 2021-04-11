@@ -36,6 +36,31 @@
         <div>
           <label><strong>Title:</strong></label> {{ currentMeal.title }}
         </div>
+        <div class="form-group">
+          <label for="carbo">Glucides pour 100g</label>
+          <input type="text" class="form-control" id="carbo"
+            v-model="currentMeal.carbo"
+          />
+        </div>
+        <div class="form-group">
+          <label for="weight">Combien je mange? (en g)</label>
+          <input type="text" class="form-control" id="weight"
+            v-model="currentMeal.weight"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ratio">Quel est mon ratio?</label>
+          <input type="text" class="form-control" id="ratio"
+            v-model="currentMeal.ratio"
+          />
+        </div>
+        <div>
+          <label><strong>Total unités d'insuline:</strong></label> 
+          {{ (currentMeal.weight && currentMeal.carbo && currentMeal.ratio 
+             ? currentMeal.weight.replace(",",".")/100*currentMeal.carbo.replace(",",".")/10*currentMeal.ratio.replace(",",".")
+             : 0).toFixed(2) }}
+        </div>
+        <!--
         <div>
           <label><strong>Weight:</strong></label> {{ currentMeal.weight }}
         </div>
@@ -43,16 +68,14 @@
           <label><strong>Ratio:</strong></label> {{ currentMeal.ratio }}
         </div>
         <div>
-          <label><strong>Glucides (/100g):</strong></label> {{ currentMeal.insuline }}
-        </div>
-        <div>
           <label><strong>Insuline:</strong></label> {{ currentMeal.weight/currentMeal.insuline*currentMeal.ratio }}
         </div>
+        
         <a class="badge badge-warning"
           :href="'/meals/' + currentMeal.id"
         >
           Edit
-        </a>
+        </a>-->
       </div>
       <div v-else>
         <br />

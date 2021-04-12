@@ -4,18 +4,19 @@
       <div class="input-group mb-3">
         <b-input type="text" size="lg" class="form-control" placeholder="Commencez à écrire ..."
           v-model="title"
-          v-on:keyup.enter="searchTitle" />
+          v-on:keyup.enter="searchTitle"
+          v-on:change="searchTitle" />
+        <!--
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button"
+          <b-button type="button"
             @click="searchTitle"
           >
             Miam !
-          </button>
-        </div>
+          </b-button>
+        </div> -->
       </div>
     </div>
     <div class="col-md-12">
-      <h4>Liste des aliments</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
@@ -30,6 +31,9 @@
     <b-modal id="meal-modal" ok-only v-bind:title="currentMeal?currentMeal.title:''">
       <div class="col-md-12">
         <div v-if="currentMeal">
+          <div class="form-group">
+            <b-img rounded src="https://source.unsplash.com/collection/190727/1600x900" fluid alt="Responsive image"></b-img>
+          </div>
           <div class="form-group">
             <label for="carbo">Glucides pour 100g</label>
             <input type="text" class="form-control" id="carbo"

@@ -24,7 +24,7 @@
           :key="index"
           @click="setActiveMeal(meal, index)"
         >
-          {{ meal.title }}
+          {{ meal.title }} <span v-if="meal.url">🐱</span>
         </li>
       </ul>
     </div>

@@ -31,8 +31,11 @@
     <b-modal id="meal-modal" ok-only v-bind:title="currentMeal?currentMeal.title:''">
       <div class="col-md-12">
         <div v-if="currentMeal">
-          <div class="form-group">
-            <b-img rounded src="https://source.unsplash.com/collection/190727/1600x900" fluid alt="Responsive image"></b-img>
+          <div class="form-group" v-if="currentMeal.url">
+            <b-img rounded :src="currentMeal.url" fluid alt="Responsive image"></b-img>
+          </div>
+          <div v-else>
+            <b-card-img :src="require('../assets/images/default.jpg')"></b-card-img>
           </div>
           <div class="form-group">
             <label for="carbo">Glucides pour 100g</label>

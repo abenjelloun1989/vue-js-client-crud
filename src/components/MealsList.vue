@@ -24,7 +24,7 @@
           :key="index"
           @click="setActiveMeal(meal, index)"
         >
-        <b-icon icon="camera" font-scale="1.5" v-if="meal.url"></b-icon> {{ meal.title }}
+        <b-icon icon="camera" font-scale="1.5" animation="fade" class="rounded bg-primary p-1" variant="light" v-if="meal.url"></b-icon> {{ meal.title }}
         </li>
       </ul>
     </div>

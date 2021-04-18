@@ -101,11 +101,22 @@ export default {
       MealDataService.getAll()
         .then(response => {
           this.meals = response.data;
+          this.meals.sort(this.compare);
           console.log(response.data);
         })
         .catch(e => {
           console.log(e);
         });
+    },
+
+    compare(a, b) {
+      if ( a.title < b.title ){
+        return -1;
+      }
+      if ( a.title > b.title ){
+        return 1;
+      }
+      return 0;
     },
 
     refreshList() {
@@ -135,6 +146,7 @@ export default {
       MealDataService.findByTitle(this.title)
         .then(response => {
           this.meals = response.data;
+          this.meals.sort(this.compare);
           console.log(response.data);
         })
         .catch(e => {

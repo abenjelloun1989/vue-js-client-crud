@@ -32,10 +32,10 @@
       <div class="col-md-12">
         <div v-if="currentMeal">
           <div class="form-group" v-if="currentMeal.url">
-            <b-img rounded :src="currentMeal.url" fluid alt="Responsive image"></b-img>
+            <b-card-img :src="require('../../../common/images/'+currentMeal.code+'.jpg')"></b-card-img>
           </div>
           <div v-else>
-            <b-card-img :src="require('../assets/images/default.jpg')"></b-card-img>
+            <b-card-img :src="require('../assets/default.jpg')"></b-card-img>
           </div>
           <div class="form-group">
             <label for="carbo">Glucides pour 100g</label>

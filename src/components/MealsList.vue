@@ -90,7 +90,7 @@ export default {
     return {
       meals: [],
       currentMeal: null,
-      currentIndex: -1,
+      currentIndex: 0,
       title: "",
       ratio: 1,
       weight: 70
@@ -122,7 +122,7 @@ export default {
     refreshList() {
       this.retrieveMeals();
       this.currentMeal = null;
-      this.currentIndex = -1;
+      this.currentIndex = 0;
     },
 
     setActiveMeal(meal, index) {
@@ -147,6 +147,7 @@ export default {
         .then(response => {
           this.meals = response.data;
           this.meals.sort(this.compare);
+          this.currentIndex = 0;
           console.log(response.data);
         })
         .catch(e => {

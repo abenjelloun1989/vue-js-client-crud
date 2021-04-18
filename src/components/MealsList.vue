@@ -2,7 +2,7 @@
   <div class="list row">
     <div class="col-md-12">
       <div class="input-group mb-3">
-        <b-input type="text" size="lg" class="form-control" placeholder="Commencez à écrire ..."
+        <b-input type="text" size="lg" b-type="search" class="form-control" placeholder="Commencez à écrire ..."
           v-model="title"
           v-on:keyup.enter="searchTitle"
           v-on:change="searchTitle" />
@@ -24,7 +24,7 @@
           :key="index"
           @click="setActiveMeal(meal, index)"
         >
-          {{ meal.title }} <span v-if="meal.url">🐱</span>
+        <b-icon icon="camera" font-scale="1.5" v-if="meal.url"></b-icon> {{ meal.title }}
         </li>
       </ul>
     </div>

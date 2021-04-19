@@ -16,15 +16,26 @@
         </div> -->
       </div>
     </div>
-    <div class="col-md-12">
+    
+    <div class="col-md-12" >
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        first-text="First"
+        prev-text="Prev"
+        next-text="Next"
+        last-text="Last"
+        align="fill"
+      ></b-pagination>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
-          v-for="(meal, index) in meals"
+          v-for="(meal, index) in mealsForList"
           :key="index"
           @click="setActiveMeal(meal, index)"
         >
-        <b-icon icon="camera" font-scale="1.5" animation="fade" class="rounded bg-primary p-1" variant="light" v-if="meal.url"></b-icon> {{ meal.title }}
+          <b-icon icon="camera" font-scale="1.5" animation="fade" class="rounded bg-primary p-1" variant="light" v-if="meal.url"></b-icon> {{ meal.title }}
         </li>
       </ul>
     </div>
@@ -93,8 +104,21 @@ export default {
       currentIndex: 0,
       title: "",
       ratio: 1,
-      weight: 70
+      weight: 70,
+      perPage: 10,
+      currentPage: 1
     };
+  },
+  computed:{
+    rows() {
+      return this.meals.length
+    },
+    mealsForList() {
+      return this.meals.slice(
+        (this.currentPage - 1) * this.perPage,
+        this.currentPage * this.perPage,
+      );
+    }
   },
   methods: {
     retrieveMeals() {

@@ -1,11 +1,15 @@
 <template>
   <div class="list row">
-    <div class="col-md-12">
-      <div class="input-group mb-3">
-        <b-input type="text" size="lg" b-type="search" class="form-control" placeholder="Commencez à écrire ..."
+    <div class="col-md-12 form-group">
+      <b-input-group size="mb-2">
+        <b-input-group-prepend is-text>
+          <b-icon icon="search"></b-icon>
+        </b-input-group-prepend>      
+        <b-form-input type="search" size="lg" b-type="search" class="form-control" placeholder="Commencez à écrire ..."
           v-model="title"
           v-on:keyup.enter="searchTitle"
           v-on:change="searchTitle" />
+      </b-input-group>
         <!--
         <div class="input-group-append">
           <b-button type="button"
@@ -14,7 +18,6 @@
             Miam !
           </b-button>
         </div> -->
-      </div>
     </div>
     
     <div class="col-md-12" >
@@ -28,16 +31,24 @@
         last-text="Last"
         align="fill"
       ></b-pagination>
-      <ul class="list-group">
-        <li class="list-group-item"
+      <b-list-group>
+        <b-list-group-item class="d-flex justify-content-between align-items-center"
           :class="{ active: index == currentIndex }"
           v-for="(meal, index) in mealsForList"
           :key="index"
           @click="setActiveMeal(meal, index)"
+          button
         >
-          <b-icon icon="camera" font-scale="1.5" animation="fade" class="rounded bg-primary p-1" variant="light" v-if="meal.url"></b-icon> {{ meal.title }}
-        </li>
-      </ul>
+          {{ meal.title }}
+          <!--<b-icon icon="camera" font-scale="1.5" class="rounded bg-primary p-1" variant="light" v-if="meal.url"></b-icon>
+          -->
+          <b-btn variant="light">
+            <div v-if="meal.url"><b-icon icon="star-fill" size="mb-2" variant="warning"></b-icon></div>
+            <div v-else><b-icon icon="star" font-scale="1.5" variant="warning"></b-icon></div>
+          </b-btn>
+          <!--<b-icon icon="star-fill" scale="1.5" variant="warning"></b-icon>-->
+        </b-list-group-item>
+      </b-list-group>
     </div>
     <b-modal id="meal-modal" ok-only v-bind:title="currentMeal?currentMeal.title:''">
       <div class="col-md-12">
@@ -101,7 +112,7 @@ export default {
     return {
       meals: [],
       currentMeal: null,
-      currentIndex: 0,
+      currentIndex: -1,
       title: "",
       ratio: 1,
       weight: 70,
